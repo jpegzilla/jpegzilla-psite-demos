@@ -1,0 +1,109 @@
+@import url("https://fonts.googleapis.com/css?family=B612+Mono&display=swap");
+@import "ani.css";
+
+* {
+  box-sizing: border-box;
+}
+
+// colors
+
+$black: #111;
+$white: #f9f9f9;
+
+// root/defaults
+
+:root {
+  font-size: 16px;
+}
+
+$preloader-font: "B612 Mono", monospace;
+
+// elements
+
+body {
+  overflow: hidden;
+  height: 100vh;
+  width: 100vw;
+  isolation: isolate;
+  background-color: $black;
+
+  // preloader
+  #preloader {
+    z-index: 10;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    background-color: $black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $white;
+    font-family: $preloader-font;
+    text-align: center;
+    font-size: 1.25rem;
+    line-height: 1.46;
+    top: 0;
+    pointer-events: auto;
+    overflow: hidden;
+    left: 0;
+    transition: opacity 0.5s;
+    isolation: isolate;
+
+    .preloader-text-container {
+    }
+
+    .preloader-bar-container {
+      height: 7rem;
+      width: 100vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+
+      @for $i from 1 through 16 {
+        .preloader-bar {
+          &:nth-child(#{$i}) {
+            animation-delay: $i * (1s / 32);
+            // @if $i % 2 == 0 {
+            //   background-color: rebeccapurple;
+            // }
+          }
+        }
+      }
+
+      .preloader-bar {
+        width: 6rem;
+        height: 100%;
+        background-color: $white;
+        animation: flash 3.5s infinite forwards;
+      }
+    }
+
+    &.hidden {
+      transition: opacity 0.5s;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+  // header
+  main {
+    isolation: isolate;
+    opacity: 1;
+    transition: opacity 0.3s;
+    header {
+      z-index: 9;
+    }
+    section {
+      height: 100%;
+      width: 100%;
+      z-index: 8;
+      &#section-1 {
+        background-color: $white;
+      }
+    }
+
+    &.hidden {
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+  }
+}
